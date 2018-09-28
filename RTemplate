@@ -1,1 +1,36 @@
+#loading packages
+install.packages("fBasics") #better statistics summaries than standard summary function
+install.packages("XLConnect")
+
+#Loading libraries
+#data manipulation
+library(tidyverse)
+library(lubridate)
+library(reshape)# use transpose and melt
+library(dplyr)
+library(mice)# imputations
+
+#machine learning
+library(caret)
+library(gbm)
+library(randomForest)
+
+#graphics
+library(ggplot2)
+library(gridExtra)#plot multiple graphs on one plot
+library(corrplot)
+
+#statistics
+library(fBasics)
+library(car)
+library(ROCR)
+library(Hmisc)
+library(knitr)
+
+#reading data
+library(readxl)
+library(XLConnect)
+library(rjson)
+#------------------------------------------------------------------------------------------------------------------------------------------
+
 
