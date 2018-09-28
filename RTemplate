@@ -33,4 +33,20 @@ library(XLConnect)
 library(rjson)
 #------------------------------------------------------------------------------------------------------------------------------------------
 
+#1. Load data
+#load csv files
+train <- read.csv('train.csv',
+                  stringsAsFactors = FALSE, 
+                  na.strings = c("NA",""), #which strings which are to be interpreted as NA
+                  header=TRUE,
+                  sep=",",
+                  row.names=c("X","Y","Z"),# specify row names
+                  col.names=c("A","B","C"),# specify column names
+                  as.is=1, # which columns to not convert over into factors
+                  )
+
+
+
+test <-  read.csv('test.csv',stringsAsFactors = FALSE, na.strings = c("NA",""),header=TRUE, sep=",")
+
 
