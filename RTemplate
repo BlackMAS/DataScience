@@ -44,6 +44,8 @@ train <- read.csv('train.csv',
                   col.names=c("A","B","C"),# specify column names
                   as.is=1, # which columns to not convert over into factors
                   nrows=300,# number of rows to read in
+                  blank.lines.skip = FALSE
+                  skipNul=FALSE
                   )
 
 
