@@ -38,7 +38,7 @@ library(rjson)
 train <- read.csv('train.csv',
                   stringsAsFactors = FALSE, 
                   na.strings = c("NA",""), #which strings which are to be interpreted as NA
-                  header=TRUE,
+                  header=TRUE,# specifies whether there is a header row
                   sep=",",
                   row.names=c("X","Y","Z"),# specify row names
                   col.names=c("A","B","C"),# specify column names
@@ -47,9 +47,17 @@ train <- read.csv('train.csv',
                   blank.lines.skip = FALSE
                   skipNul=FALSE
                   )
-
-
-
 test <-  read.csv('test.csv',stringsAsFactors = FALSE, na.strings = c("NA",""),header=TRUE, sep=",")
+
+#load excel file
+train<-read_excel(xlsx_example, sheet = "chickwts")
+train<-read_excel(xls_example, sheet = 4)
+train<-read_excel(xlsx_example, n_max = 3)# specify number of rows to read in
+train<-read_excel(xlsx_example, range = "C1:E4")
+train<-read_excel(xlsx_example, range = cell_rows(1:4))
+train<-read_excel(xlsx_example, range = cell_cols("B:D"))
+train<-read_excel(xlsx_example, range = "mtcars!B1:D5")
+train<-read_excel(xlsx_example, na = "setosa") #specify which values should be read as NAs
+
 
 
