@@ -87,9 +87,11 @@ con <- dbConnect(odbc(),
 con <- dbConnect(odbc::odbc(), "mydbalias")
                  
 #----------------------------------------------Review data size and structure-------------------------------------------------------------
-
+# dimensions of dataset (number of rows and columns)
+dim(train)
 stru(train) #view the names of columns and their character types and samples of what the variables are
 glimpse(train)
+summary(train)
 
 #finding mismatches between the data sets for categorical variables
 setdiff(levels(test$Type), levels(train$Type))
