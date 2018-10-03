@@ -31,6 +31,10 @@ library(knitr)
 library(readxl)
 library(XLConnect)
 library(rjson)
+
+#connect to sql server
+library(odbc)
+
 #------------------------------------------------------------------------------------------------------------------------------------------
 
 #1. Load data
@@ -72,6 +76,17 @@ train <- xmlParse(file = "input.xml")
 #load json file
 train <- fromJSON(file = "input.json")
 
+#connect to sql server
+con <- dbConnect(odbc(),
+                 Driver = "SQLServer",
+                 Server = "mysqlhost",
+                 Database = "mydbname",
+                 UID = "myuser",
+                 PWD = rstudioapi::askForPassword("Database password")
+                 Port = 1433)
+                 
+con <- dbConnect(odbc::odbc(), "mydbalias")
+                 
 
 
 
