@@ -49,6 +49,13 @@ train <- read.csv('train.csv',
                   )
 test <-  read.csv('test.csv',stringsAsFactors = FALSE, na.strings = c("NA",""),header=TRUE, sep=",")
 
+#load using read_csv from tidyverse
+train<-read_csv(file, col_names = TRUE, col_types = list(col_double(), col_character()),
+  locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
+  quote = "\"", comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
+  guess_max = min(1000, n_max), progress = show_progress())
+
+
 #load excel file
 train<-read_excel(xlsx_example, sheet = "chickwts")
 train<-read_excel(xls_example, sheet = 4)
@@ -58,6 +65,13 @@ train<-read_excel(xlsx_example, range = cell_rows(1:4))
 train<-read_excel(xlsx_example, range = cell_cols("B:D"))
 train<-read_excel(xlsx_example, range = "mtcars!B1:D5")
 train<-read_excel(xlsx_example, na = "setosa") #specify which values should be read as NAs
+
+#load xml file
+train <- xmlParse(file = "input.xml")
+
+#load json file
+train <- fromJSON(file = "input.json")
+
 
 
 
