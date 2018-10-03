@@ -133,3 +133,17 @@ train$Shipt.Orig.Appt.Time<-paste("01/01/2010 ", train$Shipt.Orig.Appt.Time)%>%
 #code to separate the dummy date values from the time
 train%>%
   separate(Shipt.Orig.Appt.Time, c("Dummy.remove1", "Shipt.Orig.Appt.Time"), sep = " ")
+
+#code to delete all the dummy data columns
+train<- select(train,-c(Dummy.remove1,Dummy.remove2))
+
+#code to use ifelse statements to create new columns that translate times into parts of the day, i.e. morning, afternoon, night, late night
+train%>%
+mutate(Shipt.Orig.Appt.parts.of.day = ifelse(Shipt.Orig.Appt.Time >= "05:00:00" & Shipt.Orig.Appt.Time <= "12:00:00","morning",
+                                               ifelse(Shipt.Orig.Appt.Time > "12:00:00" & Shipt.Orig.Appt.Time <= "17:00:00","afternoon",
+                                                      ifelse(Shipt.Orig.Appt.Time > "17:00:00" & Shipt.Orig.Appt.Time <= "21:00:00","evening", 
+                                                             ifelse(Shipt.Orig.Appt.Time > "21:00:00" & Shipt.Orig.Appt.Time <= "24:00:00","night", "late night") ) ) ) )
+
+#Code to add new variables that translante dates into days of the week
+train%>%
+mutate(requested.day = weekdays(Req.Delv.Dt))
