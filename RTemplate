@@ -159,3 +159,17 @@ mutate(Shipt.Orig.Appt.parts.of.day = ifelse(Shipt.Orig.Appt.Time >= "05:00:00" 
 #Code to add new variables that translante dates into days of the week
 train%>%
 mutate(requested.day = weekdays(Req.Delv.Dt))
+
+#Set column names after loading data
+colnames(train) <- c("Sepal.Length","Sepal.Width","Petal.Length","Petal.Width","Species")
+
+#---------------------------------------------Partition Data------------------------------------------------------------------
+#partition the data if there are not training and test data sets
+# create a list of 80% of the rows in the original dataset we can use for training
+test_index <- createDataPartition(dataset$Species, p=0.80, list=FALSE)
+
+# select 20% of the data for validation
+test <- dataset[-test_index,]
+
+# use the remaining 80% of data to training the models
+train <- dataset[validation_index,]
