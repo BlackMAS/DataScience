@@ -87,6 +87,20 @@ con <- dbConnect(odbc(),
                  
 con <- dbConnect(odbc::odbc(), "mydbalias")
                  
+#---------------------------------------------------------------------------------------------------------------------------------------
+#Review data size and structure
+stru(train) #view the names of columns and their character types and samples of what the variables are
+glimpse(train)
 
+#merge test and training data set
+test$Result <- NA
+all<-rbind(train,test)
+
+#inspect completeness of the data
+sapply(all, function(x) unique(x)) # look for number of unique values
+sapply(all, function(x) sum(is.na(x))) #number of NAs
+round(sapply(all, function(x) sum(is.na(x))/length(x)), digits = 3) #percent of NA per column
+sapply(all, function(x) length(which(x==0))) #number of 0's in data
+round(sapply(all, function(x) length(which(x==0))/length(x)), digits = 2)#percent of 0's in data
 
 
