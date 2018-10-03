@@ -103,4 +103,33 @@ round(sapply(all, function(x) sum(is.na(x))/length(x)), digits = 3) #percent of 
 sapply(all, function(x) length(which(x==0))) #number of 0's in data
 round(sapply(all, function(x) length(which(x==0))/length(x)), digits = 2)#percent of 0's in data
 
+#convert values to factors
+cols1 <- c("Col1","Col2","Col3","Col4")
+all[cols1] <- lapply(all[cols1], factor)
 
+# Transpose the data with "t" function
+train.T <- as.data.frame(t(train[1:nrow(train),]))
+train.T<-train.T[-(1:2),]#ignore first two rows
+
+# Convert columns from factors to numeric because transposing turns data into factors
+cols <- colnames(train.T)
+train.T[,cols] <-lapply(train.T, function(x) as.numeric(as.character(x)))
+
+#replace 0's with NA
+train.T[train.T =="0"]<- NA
+
+#get rid of scientific notation
+options(scipen=999)
+
+#code to convert the date variables into actual date values rather than their original string format
+train$Req.Delv.Dt <- as.Date(train$Req.Delv.Dt,format="%m/%d/%Y")
+
+#Code to convert times variables into acutal times from their original string values
+#"01/01/2010" is just dummy data that is needed because the lubridate function of "mdy_hms" requires a date to be included 
+
+train$Shipt.Orig.Appt.Time<-paste("01/01/2010 ", train$Shipt.Orig.Appt.Time)%>%
+  mdy_hms()
+  
+#code to separate the dummy date values from the time
+train%>%
+  separate(Shipt.Orig.Appt.Time, c("Dummy.remove1", "Shipt.Orig.Appt.Time"), sep = " ")
