@@ -36,12 +36,20 @@ data1[cols3] <- lapply(data1[cols3], as.numeric)
 
 
 
+data1$cond.order <-factor(data1$Condition, levels=c("Attitude*","Subjective Norms*","Perceived Behavioral Control*","Garden Context","Income",	"Region",	"Age",	"Race",	"Education*","Conventional *", "USDA Certified Organic",	"Garden Site History"))
+
+data1$Condition
+data1$cond.order
+
+
+
 p<- ggplot(data=data1, aes(x=Behavior,y=ORa))+
   geom_point(aes(col=Behavior))+
   geom_hline(aes(fill=Behavior), yintercept = 1, linetype=2)+
   xlab('Variable')+ylab("aOR (95% Confidence Interval)")+
   geom_errorbar(aes(ymin=LowerLimit, ymax=UpperLimit,col=Behavior),width=0.5, cex=1)+
-  facet_wrap(~Condition, strip.position = "left",nrow = 24, scales = "free_y")+
+  theme_minimal()+
+  facet_wrap(~cond.order, strip.position = "left",nrow = 24, scales = "free_y")+
   theme(plot.title = element_text(size = 16,face='bold'),
         axis.text.y = element_blank(),
         axis.ticks.y = element_blank(),
@@ -49,5 +57,5 @@ p<- ggplot(data=data1, aes(x=Behavior,y=ORa))+
         axis.title = element_text(size=12,face="bold"),
         strip.text.y = element_text(hjust=0,vjust =1,angle=180,face="bold"))+
   coord_flip()
-theme_
+
 p
